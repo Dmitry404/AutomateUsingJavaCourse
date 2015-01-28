@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Forum Test">
+    <test name="P1 test">
+        <groups>
+            <run>
+                <include name="1"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.loginPage" />
+        </classes>
+    </test>
+
+    <test name="P2 test">
+        <groups>
+            <run>
+                <include name="2"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.registrationPage" />
+        </classes>
+    </test>
+
+    <test name="P3 test">
+        <groups>
+            <run>
+                <include name="3"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.mainForumPage" />
+        </classes>
+    </test>
+
+    <test name="P2 test">
+        <groups>
+            <run>
+                <include name="4"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.addNewPost" />
+        </classes>
+    </test>
+
+    <test name="P2 test">
+        <groups>
+            <run>
+                <include name="5"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.addNewPost" />
+        </classes>
+    </test>
+
+    <test name="P2 test">
+        <groups>
+            <run>
+                <include name="6"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.mainForumPage" />
+        </classes>
+    </test>
+
+    <test name="P2 test">
+        <groups>
+            <run>
+                <include name="7"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="sample.jsp.mainForumPage" />
+        </classes>
+    </test>
+</suite>
