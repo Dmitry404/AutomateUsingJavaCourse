@@ -38,6 +38,6 @@ public class Post {
 
     public Comments addComment2Post (String commentAuthor, String commentContent) {
 
-        postComments.add( )
+        //postComments.add();
     }
 }
