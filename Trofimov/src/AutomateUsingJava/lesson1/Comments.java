@@ -1,7 +1,7 @@
 package AutomateUsingJava.lesson1;
 
 
-public class WebBlog {
+public class Comments {
 
 
 }
