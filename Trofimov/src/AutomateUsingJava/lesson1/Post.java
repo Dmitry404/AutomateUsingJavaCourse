@@ -1,7 +1,9 @@
 package AutomateUsingJava.lesson1;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Post {
 
@@ -9,7 +11,7 @@ public class Post {
     private String postContent;
     private Users postAuthor;
     private long postDate;
-    Comments [] postComments;
+    List <Comments> postComments = new ArrayList <Comments> ();
 
    public Post (String postName, String postContent, Users postAuthor) {
        this.postAuthor = postAuthor;
@@ -34,5 +36,8 @@ public class Post {
         return postDate;
     }
 
+    public Comments addComment2Post (String commentAuthor, String commentContent) {
 
+        postComments.add( )
+    }
 }
