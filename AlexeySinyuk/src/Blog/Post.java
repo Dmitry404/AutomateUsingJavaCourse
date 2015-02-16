@@ -107,14 +107,14 @@ public class Post {
 
     public void Print (){
         if (prevComment == null){
-            System.out.println(Text);
+            System.out.println(Poster.getName() + " " + Poster.getSurname() + " : " + Text);
         } else {
-            System.out.println("    " + Text);
+            System.out.println("    " + Poster.getName() + " " + Poster.getSurname() + " : " + Text);
         }
         if (nextComment != null) nextComment.Print();
     }
 
     public void PrintComment (){
-        System.out.println(Text);
+        System.out.println(Poster.getName() + " " + Poster.getSurname() + " : " + Text);
     }
 }

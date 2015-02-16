@@ -7,10 +7,10 @@ public abstract class MainClass {
 
     public static void main(String[] args) {
 
-        System.out.println("Hello!");
-        User user1 = new User ("Alexey", "Sinyuk");
+        User user1 = new User ("Ivan", "Ivanov");
+        User user2 = new User ("Petro", "Petrov");
         Post post1 = new Post ("Post1", user1, "coolstory psto");
-        post1.addComment(user1, "Perviy ololo!");
+        post1.addComment(user2, "Perviy ololo!");
         post1.addComment(user1, "Vtoroy!");
         post1.Print();
 
