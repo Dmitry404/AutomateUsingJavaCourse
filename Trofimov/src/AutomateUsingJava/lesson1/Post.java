@@ -1,9 +1,8 @@
 package AutomateUsingJava.lesson1;
 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+//import java.System;
 
 public class Post {
 
@@ -11,7 +10,8 @@ public class Post {
     private String postContent;
     private Users postAuthor;
     private long postDate;
-    List <Comments> postComments = new ArrayList <Comments> ();
+    Comments [] postComments = new Comments [10];
+    int commentId = 0;
 
    public Post (String postName, String postContent, Users postAuthor) {
        this.postAuthor = postAuthor;
@@ -28,16 +28,27 @@ public class Post {
         return postContent;
     }
 
-    public Users getPostAuthor() {
-        return postAuthor;
+    public String  getPostAuthor() {
+        return postAuthor.getUserName();
     }
 
     public long getPostDate() {
         return postDate;
     }
 
-    public Comments addComment2Post (String commentAuthor, String commentContent) {
+    public void addComment2Post (Comments k) {
 
-        //postComments.add();
+        if (commentId <10) {
+        postComments[commentId] = k;
+        commentId++;}
+            else System.out.println("huy vam!");
+    }
+
+    public void showComments2Post () {
+        //for (each Comments a : postComments
+        for (int i=0; i< commentId; i++) {
+            System.out.println(postComments[i].getCommentAuthor() + " commented at: " + postComments[i].getCommentDate());
+            System.out.println(postComments[i].getCommentContent());
+        }
     }
 }

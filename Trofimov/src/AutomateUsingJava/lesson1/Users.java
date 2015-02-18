@@ -22,4 +22,12 @@ public class Users {
         return this.userName;
     }
 
+
+    public boolean getIsAdmin (){
+        return this.isAdmin;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
 }
