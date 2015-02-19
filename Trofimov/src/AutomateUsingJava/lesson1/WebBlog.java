@@ -10,6 +10,7 @@ import java.util.List;
 public class WebBlog {
 
     protected String webBlogName = "Team work: Lesha, Artem, Viktor";
+    protected static String legend = "1 - show Posts, 2 - login, 3 - add post, 4 - add user, 5 - add comment, 6 - make admin, 7 - exit";
     Post [] blogPosts = new Post [10];
     int postId = 0;
     Users [] blogUser = new Users [10];
@@ -77,6 +78,13 @@ public class WebBlog {
    public static void main(String[] args) {
        //System.out.println("Please login :)");
      WebBlog controller = new WebBlog();
+
+
+       boolean toExit = false;
+       while (toExit) {
+           System.out.println("Please select action: " + legend);
+           action(Integer.parseInt(readit.readLine()));
+       }
 
 
 
