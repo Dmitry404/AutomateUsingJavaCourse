@@ -11,7 +11,11 @@ public class Article {
     public int Rating;
     public int Views;
 
-    protected void AddArticle() {
+    public Article(String s, String s1) {
+    }
 
+    private void addArticle(String Subject, String Body) {
+        this.Subject = Subject;
+        this.Body = Body;
     }
 }
