@@ -16,7 +16,7 @@ public class WebBlog {
     Users [] blogUser = new Users [10];
     int userId =0;
     int curUserId=-1;
-    BufferedReader readit = new BufferedReader(new InputStreamReader(System.in));
+    public static BufferedReader readit = new BufferedReader(new InputStreamReader(System.in));
 
     public void addPost2Blog (Post p) {
 
@@ -73,17 +73,25 @@ public class WebBlog {
             }
             else System.out.println("Please login first");
         }
+        if (a==4) {
+            if (curUserId != -1) {
+                if ()
+            }
+            System.out.println("");
+        }
     }
 
-   public static void main(String[] args) {
+   public static void main(String[] args) throws IOException {
        //System.out.println("Please login :)");
      WebBlog controller = new WebBlog();
 
+       Users admin = new Users ("admin", "admin");
+       admin.setIsAdmin(true);
 
        boolean toExit = false;
        while (toExit) {
            System.out.println("Please select action: " + legend);
-           action(Integer.parseInt(readit.readLine()));
+           controller.action(Integer.parseInt(readit.readLine()));
        }
 
 
