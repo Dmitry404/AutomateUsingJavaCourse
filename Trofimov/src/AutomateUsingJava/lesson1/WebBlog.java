@@ -52,32 +52,82 @@ public class WebBlog {
         }
     }
 
-    public void action (int a) throws IOException {
+    public boolean action (int a) throws IOException {
         // 1 - show Posts, 2 - login, 3 - add post, 4 - add user, 5 - add comment, 6 - make admin, 7 - exit
-        if (a==1) showPosts4Blog();
-        if (a==2) {
-            System.out.println("Enter user name: ");
-            String cUname = readit.readLine();
-            System.out.println("Enter user password: ");
-            String cUpass = readit.readLine();
-            login(cUname,cUpass);
-        }
-        if (a==3) {
-            if (curUserId >-1){
-                System.out.println("Enter post name: ");
-                String curpName = readit.readLine();
-                System.out.println("Enter post content: ");
-                String curpContent = readit.readLine();
+        switch (a) {
+            case 1: {
+                showPosts4Blog();                       //show Posts
+                return false;
+            }
+            break;
 
-                new Post(curpName, curpContent, blogUser[curUserId]);
+            case 2: {                                       //login
+                System.out.println("Enter user name: ");
+                String cUname = readit.readLine();
+                System.out.println("Enter user password: ");
+                String cUpass = readit.readLine();
+                login(cUname, cUpass);
+                return false;
             }
-            else System.out.println("Please login first");
-        }
-        if (a==4) {
-            if (curUserId != -1) {
-                if ()
+            break;
+
+            case 3: {                                       //add post
+                if (curUserId != -1) {
+                    System.out.println("Enter post name: ");
+                    String curpName = readit.readLine();
+                    System.out.println("Enter post content: ");
+                    String curpContent = readit.readLine();
+
+                    new Post(curpName, curpContent, blogUser[curUserId]);
+                } else System.out.println("Please login first");
+                return false;
             }
-            System.out.println("");
+            break;
+
+            case 4: {                                       //add user
+                if (curUserId != -1) {
+                    if (blogUser[curUserId].getIsAdmin()) {
+                        System.out.println("Please enter user name");
+                        String s1 = readit.readLine();
+                        System.out.println("Please enter user password");
+                        String s2 = readit.readLine();
+                        addUser(new Users(s1, s2));
+                    } else System.out.println("ERROR: You don't have admin permissions");
+                } else System.out.println("ERROR: Please login first with account having admin permissions");
+                return false;
+            }
+            break;
+
+            case 5: {                                       //add comment
+
+                return false;
+            }
+            break;
+
+            case 6: {                                       //make admin
+                if (curUserId != -1) {
+                    if (blogUser[curUserId].getIsAdmin()) {
+                        System.out.println("Please enter user name");
+                        String sn = readit.readLine();
+                        for (int i = 0; i < 10; i++) {
+                            if (blogUser[i].getUserName().equals(sn)) blogUser[i].setIsAdmin(true);
+                        }
+                    } else System.out.println("ERROR: You don't have admin permissions");
+                } else System.out.println("ERROR: Please login first with account having admin permissions");
+                return false;
+            }
+            break;
+
+            case 7: {                                       //exit
+                return true;
+            }
+            break;
+
+            default: {
+
+                return false;
+            }
+            break;
         }
     }
 
@@ -85,13 +135,14 @@ public class WebBlog {
        //System.out.println("Please login :)");
      WebBlog controller = new WebBlog();
 
-       Users admin = new Users ("admin", "admin");
-       admin.setIsAdmin(true);
+        Users admin = new Users ("admin", "admin");
+        admin.setIsAdmin(true);
+        controller.addUser(admin);
 
        boolean toExit = false;
-       while (toExit) {
+       while (!toExit) {
            System.out.println("Please select action: " + legend);
-           controller.action(Integer.parseInt(readit.readLine()));
+           toExit = controller.action(Integer.parseInt(readit.readLine()));
        }
 
 
