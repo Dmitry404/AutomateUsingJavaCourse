@@ -9,7 +9,7 @@ public class Post {
     private String postName;
     private String postContent;
     private Users postAuthor;
-    private long postDate;
+    private Date postDate;
     Comments [] postComments = new Comments [10];
     int commentId = 0;
 
@@ -17,7 +17,7 @@ public class Post {
        this.postAuthor = postAuthor;
        this.postName = postName;
        this.postContent = postContent;
-       this.postDate = new Date().getTime();
+       this.postDate = new Date();
    }
 
     public String getPostName() {
@@ -32,7 +32,7 @@ public class Post {
         return postAuthor.getUserName();
     }
 
-    public long getPostDate() {
+    public Date getPostDate() {
         return postDate;
     }
 
