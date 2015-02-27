@@ -5,7 +5,7 @@ package helpers;
 
 /**
  * @author ezaichuk
- * Test commit 1
+ * Test commit 2
  */
 
 import java.text.SimpleDateFormat;
