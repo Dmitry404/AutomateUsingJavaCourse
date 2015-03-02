@@ -4,6 +4,7 @@ public class RunTest {
     public static final String[][] USERS;
     public static final String[] REGULAR_PAGES;
     public static final String[] URL_PAGES;
+    public static final String spacer = "=====================================================================================================";
 
     static {
         USERS = new String[][]{
@@ -34,38 +35,46 @@ public class RunTest {
 
 
     public static void main(String[] args) {
-        // Create a new web blog
+        System.out.println(spacer);
+        System.out.println("Create a new web blog");
         WebBlog blog = new WebBlog();
 
-        // Add users in the blog
+        System.out.println(spacer);
+        System.out.println("Add users in the blog");
         for (int i = 0; i < USERS.length; i++) {
             System.out.println(USERS[i][0] + "    " + USERS[i][1]);
             blog.addUser(USERS[i][0], Integer.parseInt(USERS[i][1]));
         }
 
-        // Set the root as active user
+        System.out.println(spacer);
+        System.out.println("Set the root as active user");
         blog.showAllUsers();
         blog.setActiveUser(2);
 
+        System.out.println("Add regular pages");
         for (String page : REGULAR_PAGES) {
             blog.AddNewRegularPage(page);
         }
 
-        // Set the vasya as active user
+        System.out.println(spacer);
+        System.out.println("Set the vasya as active user");
         blog.setActiveUser(1);
 
+
         for (String page : URL_PAGES) {
-            blog.AddNewRegularPage(page);
+            blog.AddNewUrlPage(page);
         }
 
+        System.out.println(spacer);
+        System.out.println("Add url pages");
         blog.setActiveUser(2);
 
         for (String page : URL_PAGES) {
-            blog.AddNewRegularPage(page);
+            blog.AddNewUrlPage(page);
         }
 
-        // Show all pages
+        System.out.println(spacer);
+        System.out.println("Show all pages");
         blog.displayAllPages();
-//        blog.displayPage(1);
     }
 }

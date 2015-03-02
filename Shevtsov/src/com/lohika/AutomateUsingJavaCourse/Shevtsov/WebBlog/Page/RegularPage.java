@@ -15,7 +15,7 @@ public class RegularPage extends AbstractPage{
 
     @Override
     public void displayPage(PrintStream out) {
-//        System.out.println("Regular page, pageContent" + super.getPageContent());
-        out.println(super.getPageContent());
+        System.out.println("The Regular page was created" + super.getPageCreationDate() + "Content:S");
+        out.println(super.getPageContent() + "\n" );
     }
 }
