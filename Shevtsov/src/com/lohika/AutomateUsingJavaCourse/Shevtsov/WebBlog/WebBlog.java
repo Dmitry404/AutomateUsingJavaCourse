@@ -1,7 +1,10 @@
 package com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog;
 
+import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Page.Exceptions.NotExistsPageException;
+import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Page.Exceptions.PageExeptions;
 import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Page.PageStorage;
 import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Page.PagesInRam;
+import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users.Exceptions.UserExeptions;
 import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users.UserStorage;
 import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users.UsersInRam;
 
@@ -28,27 +31,35 @@ public class WebBlog {
     }
 
     public void addUser(){
-        output.print("Please input a new user name:");
-        Scanner in = new Scanner(input);
-        String name = in.next();
-        output.print("\nPlease input a new user user's privilege level\n" +
-                "    // 0 - root privilege,\n" +
-                "    // 1 - user that add comments\n" +
-                "    // 3 - a guest\n" +
-                "User's privilege level:");
-        int userPrivilegeLevel = -1;
         try {
-            userPrivilegeLevel = in.nextInt();
-        }catch (InputMismatchException e){
-            output.println("The User's privilege level incorrect: "+userPrivilegeLevel);
-            return;
+            output.print("Please input a new user name:");
+            Scanner in = new Scanner(input);
+            String name = in.next();
+            output.print("\nPlease input a new user user's privilege level\n" +
+                    "    // 0 - root privilege,\n" +
+                    "    // 1 - user that add comments\n" +
+                    "    // 3 - a guest\n" +
+                    "User's privilege level:");
+            int userPrivilegeLevel = -1;
+            try {
+                userPrivilegeLevel = in.nextInt();
+            } catch (InputMismatchException e) {
+                output.println("The User's privilege level incorrect: " + userPrivilegeLevel);
+                return;
+            }
+            addUser(name, userPrivilegeLevel);
+        }catch (UserExeptions e){
+            output.println("Cannot create a new user");
         }
-        addUser(name,userPrivilegeLevel);
     }
 
     public void addUser(String name, int userPrivilegeLevel){
         // I set it as public for testing.
-        users.addNewUser(name, userPrivilegeLevel);
+        try {
+            users.addNewUser(name, userPrivilegeLevel);
+        }catch (UserExeptions e){
+            output.println("Cannot create a new user");
+        }
     }
 
     public void showAllUsers (){users.showAllUser(output);}
@@ -65,45 +76,57 @@ public class WebBlog {
     }
 
     public void AddNewRegularPage(String content){
-        if (activeUser != null) {
-            if (users.getUserPrivilegeLevel(activeUser) == 0) {
-                pages.addNewPage("regular", content, users.getUserId(activeUser));
-            }else{
-                output.println("Only user with admin Privilege Level can add pages\n" +
-                        "Your user " + activeUser + "has a PrivilegeLevel" + users.getUserPrivilegeLevel(activeUser));
+        try {
+            if (activeUser != null) {
+                if (users.getUserPrivilegeLevel(activeUser) == 0) {
+                    pages.addNewPage("regular", content, users.getUserId(activeUser));
+                } else {
+                    output.println("Only user with admin Privilege Level can add pages\n" +
+                            "Your user " + activeUser + "has a PrivilegeLevel" + users.getUserPrivilegeLevel(activeUser));
+                }
+            } else {
+                output.println("You didn't set a active user\nOnly user with admin Privilege Level can add pages");
             }
-        }else {
-            output.println("You didn't set a active user\nOnly user with admin Privilege Level can add pages");
+        }catch (PageExeptions e){
+            output.println("Cannot create the new Regular page");
         }
     }
 
     public void AddNewUrlPage(String content){
-        if (activeUser != null) {
-            if (users.getUserPrivilegeLevel(activeUser) == 0) {
+        try {
+            if (activeUser != null) {
+                if (users.getUserPrivilegeLevel(activeUser) == 0) {
 
-        pages.addNewPage("url",content, users.getUserId(activeUser));
-            }else{
-                output.println("Only user with admin Privilege Level can add pages\n" +
-                        "Your user " + activeUser + " has a PrivilegeLevel" + users.getUserPrivilegeLevel(activeUser));
+                    pages.addNewPage("url", content, users.getUserId(activeUser));
+                } else {
+                    output.println("Only user with admin Privilege Level can add pages\n" +
+                            "Your user " + activeUser + " has a PrivilegeLevel" + users.getUserPrivilegeLevel(activeUser));
+                }
+            } else {
+                output.println("You didn't set a active user\nOnly user with admin Privilege Level can add pages");
             }
-        }else {
-            output.println("You didn't set a active user\nOnly user with admin Privilege Level can add pages");
+        }catch (PageExeptions e){
+            output.println("Cannot create the new URL page");
         }
 
     }
 
     public void AddNewImagePage(String content){
+        try {
             if (activeUser != null) {
                 if (users.getUserPrivilegeLevel(activeUser) == 0) {
-
-        pages.addNewPage("image",content, users.getUserId(activeUser));
-                }else{
+                    pages.addNewPage("image", content, users.getUserId(activeUser));
+                } else {
                     output.println("Only user with admin Privilege Level can add pages\n" +
                             "Your user " + activeUser + "has a PrivilegeLevel" + users.getUserPrivilegeLevel(activeUser));
                 }
-            }else {
+            } else {
                 output.println("You didn't set a active user\nOnly user with admin Privilege Level can add pages");
             }
+        }catch (PageExeptions e){
+            output.println("Cannot create the new image page");
+        }
+
 
     }
 
@@ -112,7 +135,13 @@ public class WebBlog {
     }
 
     public void displayPage(int num) {
-        pages.displayPage(num, output);
+        try{
+            pages.displayPage(num, output);
+        }catch (NotExistsPageException e) {
+            output.println("This page doesn't exist");
+        }catch (PageExeptions e) {
+            output.println("Cannot display this page.");
+        }
     }
 
 

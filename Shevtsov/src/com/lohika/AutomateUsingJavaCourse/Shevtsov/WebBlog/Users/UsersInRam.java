@@ -1,5 +1,9 @@
 package com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users;
 
+import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users.Exceptions.IllegalPrivilegeLevelException;
+import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users.Exceptions.NotExistUserException;
+import com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Users.Exceptions.UserAlreadyExistsException;
+
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,14 +14,14 @@ public class UsersInRam implements UserStorage {
 
     public void addNewUser (String name, int userPrivilegeLevel) {
         if (users.containsKey(name)){
-            throw new IllegalArgumentException("The user name already existed: " + name);
+            throw new UserAlreadyExistsException("The user name already existed: " + name);
         }
 
         if (userPrivilegeLevel >=0 && userPrivilegeLevel <= 3) {
             users.put(name,new BasicUser(lastUserId + 1, name, userPrivilegeLevel));
             lastUserId++;
         }else {
-            throw new IllegalArgumentException("Invalid userPrivilegeLevel: " + userPrivilegeLevel + "Expected values 0...3");
+            throw new IllegalPrivilegeLevelException("Invalid userPrivilegeLevel: " + userPrivilegeLevel + "Expected values 0...3");
         }
     }
 
@@ -30,7 +34,7 @@ public class UsersInRam implements UserStorage {
                 break;
             }
         }
-        throw new IllegalArgumentException("User with id: " + id + " wasn't found");
+        throw new NotExistUserException("User with id: " + id + " wasn't found");
     }
 
     @Override
@@ -60,7 +64,7 @@ public class UsersInRam implements UserStorage {
                 return entry.getValue().getUserName();
             }
         }
-        throw new IllegalArgumentException("User with id: " + id + " wasn't found");
+        throw new NotExistUserException("User with id: " + id + " wasn't found");
     }
 
     public int getUserPrivilegeLevel(String name) {
