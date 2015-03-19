@@ -1,120 +1,68 @@
 package Blog;
 
-/**
- * Created by asinuk on 16/02/2015.
- */
+
 public class Post {
 
-    private String Title;
-    protected User Poster;
-    protected String Text;
-    protected String Imgurl;
+    private String title;
+    protected User poster;
+    protected String text;
+    protected String imgurl;
 
     private Post prevComment;
     private Post nextComment;
 
-    public Post (String Title, User Poster, String Text){
-        this.Title = Title;
-        this.Poster = Poster;
-        this.Text = Text;
+    public Post (String title, User poster, String text){
+        this.title = title;
+        this.poster = poster;
+        this.text = text;
 
         Poster.incPosts();
     }
 
-    public Post (String Title, User Poster, String Text, String Imgurl){
-        this(Title, Poster, Text);
-        this.Imgurl = Imgurl;
+    public Post (String title, User poster, String text, String imgurl){
+        this(title, poster, text);
+        this.imgurl = imgurl;
 
         Poster.incPosts();
-    }
-
-    private Post (Post prevComment, User Poster, String Text){
-        this("", Poster, Text);
-        this.prevComment = prevComment;
-    }
-
-    private Post (Post prevComment, User Poster, String Text, String Imgurl){
-        this("", Poster, Text, Imgurl);
-        this.prevComment = prevComment;
     }
 
     public String getTitle (){
-        return Title;
+        return title;
     }
 
     public User getPoster (){
-        return Poster;
+        return poster;
     }
 
     public String getText (){
-        return Text;
+        return text;
     }
 
     public String getImgurl () {
-        return Imgurl;
+        return imgurl;
     }
 
-    public void setText (String Text){
-        this.Text = Text;
+    public void setText (String text){
+        this.text = text;
     }
 
-    public void setImgurl (String Imgurl) {
-        this.Imgurl = Imgurl;
+    public void setImgurl (String imgurl) {
+        this.imgurl = imgurl;
     }
 
-    public void addComment (User Poster, String Text){
-        if (nextComment == null) {
-            nextComment = new Post (this, Poster, Text);
-        } else {
-            nextComment.addComment(Poster, Text);
-        }
+    public void addComment (User poster, String text){
+
     }
 
-    public void addComment (User Poster, String Text, String Imgurl){
-        if (nextComment == null) {
-            nextComment = new Post (this, Poster, Text, Imgurl);
-        } else {
-            nextComment.addComment(Poster, Text, Imgurl);
-        }
-    }
+    public void addComment (User poster, String text, String imgurl){
 
-    public Post getComment (int id){
-        //TODO exceptions
-        if (nextComment != null) {
-            return nextComment.getComment(id, 1);
-        } else {
-            return null;
-        }
-    }
-
-    private Post getComment (int id, int depth){
-        if (id == depth) {
-            return this;
-        } else {
-            if (nextComment != null) {
-                return nextComment.getComment(id, depth + 1);
-            } else {
-                return null;
-            }
-        }
     }
 
     public void Delete (){
-        //TODO exceptions
-        prevComment.nextComment = nextComment;
-        nextComment.prevComment = prevComment;
+
     }
 
     public void Print (){
-        if (prevComment == null){
-            System.out.println(Poster.getName() + " " + Poster.getSurname() + " : " + Text);
-        } else {
-            System.out.println("    " + Poster.getName() + " " + Poster.getSurname() + " : " + Text);
-        }
-        if (nextComment != null) nextComment.Print();
-    }
 
-    public void PrintComment (){
-        System.out.println(Poster.getName() + " " + Poster.getSurname() + " : " + Text);
     }
 }

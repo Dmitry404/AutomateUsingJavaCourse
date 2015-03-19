@@ -2,40 +2,42 @@ package Blog;
 
 import javafx.geometry.Pos;
 
-/**
- * Created by asinuk on 16/02/2015.
- */
+
 public class User {
 
-    private String Name;
-    private String Surname;
-    private int Posts = 0;
+    private String name;
+    private String surname;
+    private int posts = 0;
+    private int comments = 0;
 
-    public User (String Name, String Surname){
-        this.Name = Name;
-        this.Surname = Surname;
+    public User (String name, String surname){
+        this.name = name;
+        this.surname = surname;
     }
 
     public String getName(){
-        return Name;
+        return name;
     }
 
     public String getSurname(){
-        return Surname;
+        return surname;
     }
 
     public int getPosts (){
-        return Posts;
+        return posts;
     }
 
     int incPosts (){
-        Posts++;
-        return Posts;
+        posts++;
+        return posts;
     }
 
     int decPosts (){
-        Posts--;
-        return Posts;
+        posts--;
+        return posts;
     }
 
+    public int getCommentsNum() {
+        return comments;
+    }
 }
