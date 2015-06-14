@@ -1,4 +1,4 @@
-package com.lohika.AutomateUsingJavaCourse.Shevtsov.WebBlog.Page.Exceptions;
+package demo.Page.Exceptions;
 
 public class NotExistsPageException extends PageExeptions {
 

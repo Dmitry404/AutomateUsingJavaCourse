@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       <context:component-scan base-package="demo.controllers" />
+
+
+       <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+              <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+              <property name="prefix" value="/WEB-INF/" />
+              <property name="suffix" value=".jsp" />
+       </bean>
+
+
+       <bean id="post" class="demo.Page.RegularPost">
+       </bean>
+
+
+       <bean id="postStorage" class="demo.services.PostsInRam">
+       </bean>
+       <!--
+              <bean id="rightuppoint" class="ga.hedg.springapp.mvc.Point">
+                     <property name="x" value= "5" />
+                     <property name="y" value= "7" />
+              </bean>
+
+              <bean id="rectangle" class="ga.hedg.springapp.mvc.Rectangle">
+                     <constructor-arg index="0" type="double" name="width" value="12" />
+                     <constructor-arg index="1" type="double" name="height" value="10" />
+                     <property name="width" value= "3" />
+                     <property name="height" value= "1" />
+              </bean>
+
+       -->
+
+       <mvc:resources mapping="/res/**" location="/res/" />
+       <mvc:annotation-driven />
+</beans>

@@ -11,6 +11,7 @@
     <title>Error Page</title>
 </head>
 <body>
-ERROR !
+ERROR !!!
+Error message: ${error_message}
 </body>
 </html>

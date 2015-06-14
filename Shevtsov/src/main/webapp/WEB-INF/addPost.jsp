@@ -9,12 +9,12 @@
  
     <table>
     <tr>
-        <td><form:label path="title">First Name</form:label></td>
+        <td><form:label path="title">Title</form:label></td>
         <td><form:input path="title" /></td>
     </tr>
     <tr>
-        <td><form:label path="body">Last Name</form:label></td>
-        <td><form:input path="body" /></td>
+        <td><form:label path="postContent">Content</form:label></td>
+        <td><form:input path="postContent" /></td>
     </tr>
 
     <tr>
