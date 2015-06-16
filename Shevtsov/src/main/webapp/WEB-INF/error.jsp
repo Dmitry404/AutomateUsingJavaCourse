@@ -1,17 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SS
-  Date: 01-Jun-15
-  Time: 01:50
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Error Page</title>
-</head>
+<%@include file="parts/begin.jsp" %>
 <body>
-ERROR !!!
-Error message: ${error_message}
+<div class="content">
+  <%@include file="parts/header.jsp" %>
+  <div id="main">
+    <div class="center">
+
+      <! -- Begin  -->
+      <h2><a href="#">Error</a></h2>
+      Error message: ${error_message}
+      <! -- End  -->
+
+    </div>
+    <%@include file="parts/leftmenu.jsp" %>
+  </div>
+  <%@include file="parts/prefooter.jsp" %>
+  <%@include file="parts/footer.jsp" %>
+</div>
 </body>
 </html>

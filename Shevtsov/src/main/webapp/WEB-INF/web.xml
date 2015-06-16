@@ -34,13 +34,13 @@
        <!-- Servlet with beans -->
        <!--
        <servlet>
-              <servlet-name>message</servlet-name>
+              <servlet-userName>message</servlet-userName>
               <servlet-class>ga.hedg.springapp.mvc.servlets.MainServlet</servlet-class>
               <load-on-startup>1</load-on-startup>
        </servlet>
 
        <servlet-mapping>
-              <servlet-name>message</servlet-name>
+              <servlet-userName>message</servlet-userName>
               <url-pattern>/message</url-pattern>
        </servlet-mapping>
        -->

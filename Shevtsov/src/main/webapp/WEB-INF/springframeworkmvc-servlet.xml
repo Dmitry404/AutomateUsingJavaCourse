@@ -23,21 +23,28 @@
 
        <bean id="postStorage" class="demo.services.PostsInRam">
        </bean>
+
+       <bean id="users" class="demo.Users.UsersInRam">
+       </bean>
+
+       <bean id="user" class="demo.Users.BasicUser">
+       </bean>
        <!--
               <bean id="rightuppoint" class="ga.hedg.springapp.mvc.Point">
-                     <property name="x" value= "5" />
-                     <property name="y" value= "7" />
+                     <property userName="x" value= "5" />
+                     <property userName="y" value= "7" />
               </bean>
 
               <bean id="rectangle" class="ga.hedg.springapp.mvc.Rectangle">
-                     <constructor-arg index="0" type="double" name="width" value="12" />
-                     <constructor-arg index="1" type="double" name="height" value="10" />
-                     <property name="width" value= "3" />
-                     <property name="height" value= "1" />
+                     <constructor-arg index="0" type="double" userName="width" value="12" />
+                     <constructor-arg index="1" type="double" userName="height" value="10" />
+                     <property userName="width" value= "3" />
+                     <property userName="height" value= "1" />
               </bean>
 
        -->
 
        <mvc:resources mapping="/res/**" location="/res/" />
+       <mvc:resources mapping="/images/**" location="/res/themes/manuscript/images/" />
        <mvc:annotation-driven />
 </beans>

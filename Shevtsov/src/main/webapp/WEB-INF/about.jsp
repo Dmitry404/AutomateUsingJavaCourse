@@ -1,11 +1,21 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>About</title>
-</head>
+<%@include file="parts/begin.jsp" %>
 <body>
-<h1>This is post about the blog</h1>>
-<a href="<c:url value="//welcome" />">Welcome</a>
+<div class="content">
+    <%@include file="parts/header.jsp" %>
+    <div id="main">
+        <div class="center">
+
+            <! -- Begin  -->
+            <h2><a href="#">About this blog</a></h2>
+            This is a template for a blog which uses Spring MVC
+            <! -- End  -->
+
+        </div>
+        <%@include file="parts/leftmenu.jsp" %>
+    </div>
+    <%@include file="parts/prefooter.jsp" %>
+    <%@include file="parts/footer.jsp" %>
+</div>
 </body>
+
 </html>

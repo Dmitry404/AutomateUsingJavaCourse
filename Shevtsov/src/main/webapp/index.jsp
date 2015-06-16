@@ -8,7 +8,7 @@
     <title></title>
 </head>
 <body>
-This is index page
+
 <c:redirect url="//welcome"/>
 </body>
 </html>

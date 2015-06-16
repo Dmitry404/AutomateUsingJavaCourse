@@ -20,6 +20,9 @@ import java.util.List;
 
 import demo.Page.Post;
 import demo.Page.RegularPost;
+import demo.Users.BasicUser;
+import demo.Users.User;
+import demo.Users.UsersInRam;
 import demo.services.PostStorage;
 import demo.services.PostsInRam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,10 @@ public class WebController {
     @Qualifier("postStorage")
     PostStorage postStorage;
 
+    @Autowired
+    @Qualifier("users")
+    UsersInRam users;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String hello(){
         return "welcome";
@@ -56,7 +63,7 @@ public class WebController {
     }
 
     @RequestMapping(value = "/addPost", method = RequestMethod.GET)
-    public ModelAndView ModelAndView(){
+    public ModelAndView addPost(){
         return new ModelAndView("addPost", "command", new RegularPost());
     }
 
@@ -68,10 +75,29 @@ public class WebController {
             modelAndView.setViewName("error");
             return modelAndView;
         }
-        System.out.println("This is addPost in WebController. Title - " + post.getPostTitle() + " Content: " + post.getPostContent());
+//        System.out.println("This is addPost in WebController. Title - " + post.getPostTitle() + " Content: " + post.getPostContent());
         postStorage.addNewPost(post);
         List<Post> posts = postStorage.displayAllPosts();
         return new ModelAndView("webBlog", "posts", posts);
+    }
+
+
+    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+    public ModelAndView addUser(){
+        return new ModelAndView("addUser", "command", new BasicUser());
+    }
+
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public ModelAndView addUser(@ModelAttribute("user") BasicUser user){
+        ModelAndView modelAndView = new ModelAndView();
+        if (user == null){
+            modelAndView.addObject("error_message", "The object user is NULL!!!");
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+        modelAndView.addObject("error_message", "Name : " + user.getUserName());
+        modelAndView.setViewName("error");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
