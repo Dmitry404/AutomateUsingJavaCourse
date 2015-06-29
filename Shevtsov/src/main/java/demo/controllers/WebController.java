@@ -25,6 +25,7 @@ import demo.Users.User;
 import demo.Users.UsersInRam;
 import demo.services.PostStorage;
 import demo.services.PostsInRam;
+import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.PostConstruct;
 
 @Controller
 @RequestMapping("/")
@@ -45,6 +48,25 @@ public class WebController {
     @Autowired
     @Qualifier("users")
     UsersInRam users;
+
+    @PostConstruct
+    public void initIt() throws Exception {
+        User user = new BasicUser("admin", 0);
+        if (!users.userNameExists(user.getUserName())){
+            user.setPassword("1");
+            user.setEmail("admin@example.com");
+            users.addNewUser(user);
+            System.out.println("Add user admin");
+        }
+
+        User guest = new BasicUser("guest", 3);
+        if (!users.userNameExists(guest.getUserName())){
+            guest.setPassword("1");
+            guest.setEmail("guest@example.com");
+            users.addNewUser(guest);
+            System.out.println("Add user guest");
+        }
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String hello(){
@@ -82,6 +104,8 @@ public class WebController {
     }
 
 
+/*
+
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public ModelAndView addUser(){
         return new ModelAndView("addUser", "command", new BasicUser());
@@ -95,11 +119,29 @@ public class WebController {
             modelAndView.setViewName("error");
             return modelAndView;
         }
-        modelAndView.addObject("error_message", "Name : " + user.getUserName());
+        modelAndView.addObject("error_message", "Name : " + user.getUserName() + "Password: "+user.getPassword());
         modelAndView.setViewName("error");
         return modelAndView;
     }
 
+*/
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView register(){
+        return new ModelAndView("register", "command", new BasicUser());
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ModelAndView register(@ModelAttribute("user") BasicUser user){
+        ModelAndView modelAndView = new ModelAndView();
+        if (user == null){
+            modelAndView.addObject("error_message", "The object user is NULL!!!");
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+        users.addNewUser(user);
+        modelAndView.addObject("error_message", "Id: "+ users.getUserId(user.getUserName())+" Name : " + user.getUserName() + " Password: "+user.getPassword() + " email: "+ user.getEmail());
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
     public ModelAndView getPosts(){
         List<Post> posts = postStorage.displayAllPosts();
@@ -116,5 +158,44 @@ public class WebController {
 //    }
 
 
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView checkLogIn(@ModelAttribute("user") BasicUser user){
+        ModelAndView modelAndView = new ModelAndView();
+        if (user == null){
+            return new ModelAndView("login");
+        }
+        if (users.userNameExists(user.getUserName()) && users.getUserByName(user.getUserName()).getPassword().equals(user.getPassword()) ){
+            modelAndView.addObject("error_message", "Yeaa. You successfullu logged in as " + user.getUserName());
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+        modelAndView.addObject("error_message", "Log in failed with Name : " + user.getUserName() + " Password:" + user.getPassword());
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(){
+        return new ModelAndView("login", "command", new BasicUser());
+    }
+
+    @RequestMapping(value = "/login", method = {RequestMethod.POST})
+    public ModelAndView login(@ModelAttribute("user") BasicUser user){
+        ModelAndView modelAndView = new ModelAndView();
+        if (user == null){
+            modelAndView.addObject("error_message", "The object user is NULL!!!");
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+//        users.addNewUser(user);
+        if (users.userNameExists(user.getUserName()) && users.getUserByName(user.getUserName()).getPassword().equals(user.getPassword())) {
+            modelAndView.addObject("message", "Log in successful. Id: " + users.getUserId(user.getUserName()) + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
+            modelAndView.setViewName("message");
+            return modelAndView;
+        }else{
+            modelAndView.addObject("error_message", "Login failed: " + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+    }
 
 }

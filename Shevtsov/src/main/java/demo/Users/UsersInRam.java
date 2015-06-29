@@ -12,16 +12,17 @@ public class UsersInRam implements UserStorage {
     private Map<String, User> users = new HashMap<>();
     private int lastUserId=0;
 
-    public void addNewUser (String name, int userPrivilegeLevel) {
-        if (users.containsKey(name)){
-            throw new UserAlreadyExistsException("The user name already existed: " + name);
+    public void addNewUser (User user) {
+        if (userNameExists(user.getUserName())){
+            throw new UserAlreadyExistsException("The user name already existed: " + user.getUserName());
         }
 
-        if (userPrivilegeLevel >=0 && userPrivilegeLevel <= 3) {
-            users.put(name,new BasicUser(lastUserId + 1, name, userPrivilegeLevel));
+        if (user.getUserPrivilegeLevel() >=0 && user.getUserPrivilegeLevel() <= 3) {
+            user.setUserId(lastUserId + 1);
+            users.put(user.getUserName(), user);
             lastUserId++;
         }else {
-            throw new IllegalPrivilegeLevelException("Invalid userPrivilegeLevel: " + userPrivilegeLevel + "Expected values 0...3");
+            throw new IllegalPrivilegeLevelException("Invalid userPrivilegeLevel: " + user.getUserPrivilegeLevel() + "Expected values 0...3");
         }
     }
 
@@ -54,6 +55,10 @@ public class UsersInRam implements UserStorage {
     @Override
     public int getUserId(String name) {
         return users.get(name).getUserId();
+    }
+
+    public User getUserByName(String name) {
+        return users.get(name);
     }
 
     @Override

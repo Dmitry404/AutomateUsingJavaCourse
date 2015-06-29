@@ -4,6 +4,7 @@ public class BasicUser implements User {
     private int userId;
     private String userName;
     private String password;
+    private String email;
     private int userPrivilegeLevel;
     // 0 - root privilege,
     // 1 - user that add comments
@@ -12,12 +13,18 @@ public class BasicUser implements User {
 
     public BasicUser() {
         this.userId = -1;
-        this.userName = "Default User Name";
+        this.userName = "";
         this.userPrivilegeLevel = 2;
     }
 
-    BasicUser(int id, String userName,int userPrivilegeLevel){
+    public BasicUser(int id, String userName,int userPrivilegeLevel){
         this.userId = id;
+        this.userName = userName;
+        this.userPrivilegeLevel = userPrivilegeLevel;
+    }
+
+    public BasicUser(String userName,int userPrivilegeLevel){
+        this.userId = -1;
         this.userName = userName;
         this.userPrivilegeLevel = userPrivilegeLevel;
     }
@@ -55,5 +62,15 @@ public class BasicUser implements User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

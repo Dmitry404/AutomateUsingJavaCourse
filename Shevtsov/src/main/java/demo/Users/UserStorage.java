@@ -3,7 +3,7 @@ package demo.Users;
 import java.io.PrintStream;
 
 public interface UserStorage {
-    public void addNewUser (String name, int UserPrivilegeLevel);
+    public void addNewUser (User user);
     public void removeUser (int id);
     public void removeUser (String name);
     public void showAllUser (PrintStream output);
