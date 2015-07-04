@@ -5,6 +5,7 @@ import demo.Users.Exceptions.NotExistUserException;
 import demo.Users.Exceptions.UserAlreadyExistsException;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,4 +95,13 @@ public class UsersInRam implements UserStorage {
         return (users.containsKey(name));
     }
 
+    @Override
+    public boolean validateUser(User user) {
+        if (userNameExists(user.getUserName()) ){
+            User userInStorage = getUserByName(user.getUserName());
+            return  Arrays.equals(userInStorage.getPassword(), user.getPassword());
+        }else{
+            return false;
+        }
+    }
 }

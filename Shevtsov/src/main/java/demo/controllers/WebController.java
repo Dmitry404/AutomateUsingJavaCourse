@@ -40,7 +40,6 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
-//@SessionAttributes("currentUser")
 public class WebController {
 
     @Autowired
@@ -139,27 +138,12 @@ public class WebController {
 //    }
 
 
-    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView checkLogIn(@ModelAttribute("user") BasicUser user){
-        ModelAndView modelAndView = new ModelAndView();
-        if (user == null){
-            return new ModelAndView("login");
-        }
-        if (users.userNameExists(user.getUserName()) && users.getUserByName(user.getUserName()).getPassword().equals(user.getPassword()) ){
-            modelAndView.addObject("error_message", "Yeaa. You successfullu logged in as " + user.getUserName());
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
-        modelAndView.addObject("error_message", "Log in failed with Name : " + user.getUserName() + " Password:" + user.getPassword());
-        modelAndView.setViewName("error");
-        return modelAndView;
-    }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(){
         return new ModelAndView("login", "command", new BasicUser());
     }
 
-//    @ModelAttribute("currentUser")
+
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
     public ModelAndView login(@ModelAttribute("user") BasicUser user, HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
@@ -168,13 +152,9 @@ public class WebController {
             modelAndView.setViewName("error");
             return modelAndView;
         }
-//        users.addNewUser(user);
-        if (users.userNameExists(user.getUserName()) && users.getUserByName(user.getUserName()).getPassword().equals(user.getPassword())) {
-
+        if (users.validateUser(user)){
             modelAndView.addObject("message", "Log in successful.");
 //            modelAndView.addObject("message", "Log in successful. Id: " + users.getUserId(user.getUserName()) + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
-//            modelAndView.addObject("currentUser", user.getUserName());
-//            modelAndView.addObject("currentUser", users.getUserByName(user.getUserName()));
             HttpSession ses = request.getSession();
             ses.setAttribute("currentUser", users.getUserByName(user.getUserName()));
             modelAndView.setViewName("message");

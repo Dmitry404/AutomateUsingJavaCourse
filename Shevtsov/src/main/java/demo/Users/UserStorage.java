@@ -12,4 +12,5 @@ public interface UserStorage {
     public int getUserPrivilegeLevel(String name);
     public boolean userIdExists(int id);
     public boolean userNameExists(String name);
+    public boolean validateUser(User user);
 }
