@@ -29,16 +29,18 @@ import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
+//@SessionAttributes("currentUser")
 public class WebController {
 
     @Autowired
@@ -104,27 +106,6 @@ public class WebController {
     }
 
 
-/*
-
-    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
-    public ModelAndView addUser(){
-        return new ModelAndView("addUser", "command", new BasicUser());
-    }
-
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("user") BasicUser user){
-        ModelAndView modelAndView = new ModelAndView();
-        if (user == null){
-            modelAndView.addObject("error_message", "The object user is NULL!!!");
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
-        modelAndView.addObject("error_message", "Name : " + user.getUserName() + "Password: "+user.getPassword());
-        modelAndView.setViewName("error");
-        return modelAndView;
-    }
-
-*/
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register(){
         return new ModelAndView("register", "command", new BasicUser());
@@ -138,8 +119,8 @@ public class WebController {
             return modelAndView;
         }
         users.addNewUser(user);
-        modelAndView.addObject("error_message", "Id: "+ users.getUserId(user.getUserName())+" Name : " + user.getUserName() + " Password: "+user.getPassword() + " email: "+ user.getEmail());
-        modelAndView.setViewName("error");
+        modelAndView.addObject("message", "Id: "+ users.getUserId(user.getUserName())+" Name : " + user.getUserName() + " Password: "+user.getPassword() + " email: "+ user.getEmail());
+        modelAndView.setViewName("message");
         return modelAndView;
     }
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
@@ -178,8 +159,9 @@ public class WebController {
         return new ModelAndView("login", "command", new BasicUser());
     }
 
+//    @ModelAttribute("currentUser")
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
-    public ModelAndView login(@ModelAttribute("user") BasicUser user){
+    public ModelAndView login(@ModelAttribute("user") BasicUser user, HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
         if (user == null){
             modelAndView.addObject("error_message", "The object user is NULL!!!");
@@ -188,14 +170,37 @@ public class WebController {
         }
 //        users.addNewUser(user);
         if (users.userNameExists(user.getUserName()) && users.getUserByName(user.getUserName()).getPassword().equals(user.getPassword())) {
-            modelAndView.addObject("message", "Log in successful. Id: " + users.getUserId(user.getUserName()) + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
+
+            modelAndView.addObject("message", "Log in successful.");
+//            modelAndView.addObject("message", "Log in successful. Id: " + users.getUserId(user.getUserName()) + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
+//            modelAndView.addObject("currentUser", user.getUserName());
+//            modelAndView.addObject("currentUser", users.getUserByName(user.getUserName()));
+            HttpSession ses = request.getSession();
+            ses.setAttribute("currentUser", users.getUserByName(user.getUserName()));
             modelAndView.setViewName("message");
             return modelAndView;
         }else{
-            modelAndView.addObject("error_message", "Login failed: " + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
+//            modelAndView.addObject("error_message", "Login failed: " + " Name : " + user.getUserName() + " Password: " + user.getPassword() + " email: " + user.getEmail());
+            modelAndView.addObject("error_message", "Login failed. Please enter correct user and password.");
             modelAndView.setViewName("error");
             return modelAndView;
         }
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
+        {
+            request.getSession().removeAttribute("currentUser");
+            request.getSession().invalidate();
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Expires", "-1");
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("message", "Log Out successful");
+            modelAndView.setViewName("message");
+            return modelAndView;
+        }
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package demo.Users;
 
-public interface User {
+public interface User  {
     int getUserId();
     void setUserId(int userId);
     String getUserName();

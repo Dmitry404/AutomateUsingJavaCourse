@@ -1,6 +1,8 @@
 package demo.Users;
 
-public class BasicUser implements User {
+import java.io.Serializable;
+
+public class BasicUser implements User , Serializable {
     private int userId;
     private String userName;
     private String password;
