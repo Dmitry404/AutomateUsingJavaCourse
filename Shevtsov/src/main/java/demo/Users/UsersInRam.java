@@ -99,7 +99,7 @@ public class UsersInRam implements UserStorage {
     public boolean validateUser(User user) {
         if (userNameExists(user.getUserName()) ){
             User userInStorage = getUserByName(user.getUserName());
-            return  Arrays.equals(userInStorage.getPassword(), user.getPassword());
+            return  userInStorage.getPassword().equals(user.getPassword());
         }else{
             return false;
         }

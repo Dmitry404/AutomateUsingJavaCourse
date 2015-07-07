@@ -17,7 +17,7 @@
           </tr>
           <tr>
             <td colspan="2">
-              <input type="submit" value="Log In"/>
+              <input type="submit" value="Log In" test-id="submit-login"/>
             </td>
           </tr>
         </table>

@@ -4,13 +4,12 @@ import demo.utils.Encyption;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class BasicUser implements User , Serializable {
     private int userId;
     private String userName;
-    private byte[] password;
+    private String password;
     private String email;
     private int userPrivilegeLevel;
     // 0 - root privilege,
@@ -63,7 +62,7 @@ public class BasicUser implements User , Serializable {
         return userPrivilegeLevel;
     }
 
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 

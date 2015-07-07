@@ -38,6 +38,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static demo.Page.URLMap.*;
+
+// TODO
+// Add log4j
+// Add DB
+// Add Spring Security
+// Add REST API
+// Add i18n
+
 @Controller
 @RequestMapping("/")
 public class WebController {
@@ -74,23 +83,23 @@ public class WebController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    @RequestMapping(value = ABOUT, method = RequestMethod.GET)
     public String about(){
         return "about";
     }
 
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    @RequestMapping(value = WELCOME, method = RequestMethod.GET)
     public ModelAndView welcome(){
         List<Post> posts = postStorage.displayAllPosts();
         return new ModelAndView("webBlog", "posts", posts);
     }
 
-    @RequestMapping(value = "/addPost", method = RequestMethod.GET)
+    @RequestMapping(value = ADDPOST, method = RequestMethod.GET)
     public ModelAndView addPost(){
         return new ModelAndView("addPost", "command", new RegularPost());
     }
 
-    @RequestMapping(value = "/addPost", method = RequestMethod.POST)
+    @RequestMapping(value = ADDPOST, method = RequestMethod.POST)
     public ModelAndView addPost(@ModelAttribute("post") RegularPost post){
         ModelAndView modelAndView = new ModelAndView();
         if (post == null){
@@ -105,11 +114,12 @@ public class WebController {
     }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = REGISTER, method = RequestMethod.GET)
     public ModelAndView register(){
         return new ModelAndView("register", "command", new BasicUser());
     }
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+
+    @RequestMapping(value = REGISTER, method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute("user") BasicUser user){
         ModelAndView modelAndView = new ModelAndView();
         if (user == null){
@@ -138,13 +148,13 @@ public class WebController {
 //    }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = LOGIN, method = RequestMethod.GET)
     public ModelAndView login(){
         return new ModelAndView("login", "command", new BasicUser());
     }
 
 
-    @RequestMapping(value = "/login", method = {RequestMethod.POST})
+    @RequestMapping(value = LOGIN, method = {RequestMethod.POST})
     public ModelAndView login(@ModelAttribute("user") BasicUser user, HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
         if (user == null){
@@ -167,7 +177,7 @@ public class WebController {
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = LOGOUT, method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
         {
             request.getSession().removeAttribute("currentUser");

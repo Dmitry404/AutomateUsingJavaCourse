@@ -8,7 +8,7 @@ public interface User  {
     void setUserId(int userId);
     String getUserName();
     void setUserName(String userName);
-    byte[] getPassword();
+    String getPassword();
     void setPassword(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException;
     String getEmail();
     void setEmail(String email);
