@@ -40,12 +40,11 @@ import javax.servlet.http.HttpSession;
 
 import static demo.Page.URLMap.*;
 
-// TODO
-// Add log4j
-// Add DB
-// Add Spring Security
-// Add REST API
-// Add i18n
+// TODO:    Add log4j
+// TODO:    Add DB
+// TODO:    Add Spring Security
+// TODO:    Add REST API
+// TODO:    Add i18n
 
 @Controller
 @RequestMapping("/")

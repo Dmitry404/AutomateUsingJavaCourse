@@ -10,10 +10,10 @@
       <form:form method="post" action="login">
         <table>
           <tr>
-            <td><form:input path="userName" placeholder="Username" size="30" /></td>
+            <td><form:input path="userName" placeholder="Username" size="30" test-id="input-username" /></td>
           </tr>
           <tr>
-            <td><form:input path="password" type = "password" placeholder="Password" size="30" /></td>
+            <td><form:input path="password" type = "password" placeholder="Password" size="30" test-id="input-password" /></td>
           </tr>
           <tr>
             <td colspan="2">
