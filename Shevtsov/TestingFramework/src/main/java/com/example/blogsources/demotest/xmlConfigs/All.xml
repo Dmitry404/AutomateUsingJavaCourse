@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Test Registration" >
+  <test verbose="0" name="Check availability for Application" annotations="JDK">
+    <groups>
+      <run>
+        <include name="init"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.blogsources.demotest.Tests.init"/>
+    </classes>
+  </test>
+  <test verbose="0" name="Check availability for pages" annotations="JDK">
+    <groups>
+      <run>
+        <include name="sanity"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.blogsources.demotest.Tests.init"/>
+      <class name="com.example.blogsources.demotest.Tests.loginLogout"/>
+      <class name="com.example.blogsources.demotest.Tests.Registration"/>
+      <class name="com.example.blogsources.demotest.dataProviders.registrationDataProvider"/>
+      <class name="com.example.blogsources.demotest.Driver"/>
+    </classes>
+  </test>
+
+  <test verbose="0" name="Test Registration" annotations="JDK">
+    <groups>
+      <run>
+        <include name="registration"/>
+        <exclude name="sanity"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.blogsources.demotest.Tests.init"/>
+      <class name="com.example.blogsources.demotest.Tests.loginLogout"/>
+      <class name="com.example.blogsources.demotest.Tests.Registration"/>
+      <class name="com.example.blogsources.demotest.dataProviders.registrationDataProvider"/>
+      <class name="com.example.blogsources.demotest.Driver"/>
+    </classes>
+  </test>
+  <test verbose="1" name="Add new posts" annotations="JDK">
+    <groups>
+      <run>
+        <include name="addPost"/>
+        <exclude name="sanity"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.blogsources.demotest.Tests.init"/>
+      <class name="com.example.blogsources.demotest.Tests.loginLogout"/>
+      <class name="com.example.blogsources.demotest.Tests.Registration"/>
+      <class name="com.example.blogsources.demotest.Tests.addPost"/>
+      <class name="com.example.blogsources.demotest.dataProviders.registrationDataProvider"/>
+      <class name="com.example.blogsources.demotest.Driver"/>
+    </classes>
+  </test>
+</suite>
