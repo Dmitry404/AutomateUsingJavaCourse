@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Test Login/Logout" >
+  <test verbose="1" name="Check availability for pages" annotations="JDK">
+    <groups>
+      <run>
+        <include name="sanity"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.blogsources.demotest.Tests.init"/>
+      <class name="com.example.blogsources.demotest.Tests.loginLogout"/>
+      <class name="com.example.blogsources.demotest.dataProviders.loginDataProvider"/>
+      <class name="com.example.blogsources.demotest.Driver"/>
+    </classes>
+  </test>
+
+  <test verbose="1" name="Test Login/Logout" annotations="JDK">
+    <groups>
+      <run>
+        <include name="login"/>
+        <include name="logout"/>
+        <exclude name="sanity"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.blogsources.demotest.Tests.loginLogout"/>
+      <class name="com.example.blogsources.demotest.dataProviders.loginDataProvider"/>
+      <class name="com.example.blogsources.demotest.Driver"/>
+    </classes>
+  </test>
+
+</suite>
